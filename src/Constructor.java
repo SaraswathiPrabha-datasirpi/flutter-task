@@ -1,11 +1,11 @@
-public class Constructor {
+public class Constructor extends ParentConst {
     public Constructor(){
-        this(5);
+        super(123);
         System.out.println("Default Constructor");
 
     }
     public Constructor(int id){
-        this("Prabha",9629763465L);
+        super(50.50f);
         System.out.println("Integer Parameterized constructor");
         System.out.println("Student id:"+ id);
         System.out.println("\n");
@@ -19,6 +19,8 @@ public class Constructor {
 
     public static void main(String[] args) {
         Constructor c = new Constructor();
+        Constructor c1 = new Constructor(10);
+        Constructor c2 = new Constructor("Prabha",8756406213L);
 
     }
 }
