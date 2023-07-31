@@ -1,54 +1,49 @@
-class Employee {
-  int empId = 1;
-  String empName = "Prabha";
-
-  void display() {
-    print("Employee name  is: $empName");
-  }
-
-//Default Constructor
-  Employee() {
-    print("Default Constructor");
-  }
-}
+import 'package:flutter/material.dart';
+import 'package:my_app/new.dart';
 
 void main() {
-  Employee emp = new Employee();
-  emp.empId = 3;
-  print("Employee id is: ${emp.empId}");
-  emp.display();
-
-  print("\n");
-
-  Employee emp1 = new Employee();
-  emp1.empId = 5;
-  emp1.empName = 'Sabana';
-  print("Employee id is: ${emp1.empId}");
-  emp1.display();
+  runApp(const Demo());
 }
 
+class Demo extends StatelessWidget {
+  const Demo({super.key});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import 'dart:io';
-
-// void main() {
-//   var name;
-//   print("Enter your name");
-//   name = stdin.readLineSync();
-//   print(name);
-// }
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: Scaffold(
+      appBar: AppBar(
+          title: const Text("ListView in Flutter"),
+          backgroundColor: Colors.deepPurple,
+          centerTitle: true,
+          leading: IconButton(onPressed: () {}, icon: const Icon(Icons.menu))),
+      body: ListView.builder(
+        itemCount: 50,
+        itemBuilder: (context, index) {
+          return Card(
+              child: ListTile(
+            title: Text("List ${index + 1}"),
+            subtitle: Text("List ${index + 1} Subtile ",
+                style: const TextStyle(
+                    color: Colors.indigo, fontWeight: FontWeight.bold)),
+            leading: const Icon(Icons.rounded_corner),
+            onTap: () {
+              print("Prabha");
+            },
+            trailing: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NextPage()),
+                  );
+                },
+                icon: const Icon(Icons.arrow_forward)),
+          ));
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: const Icon(Icons.arrow_downward)),
+    ));
+  }
+}
