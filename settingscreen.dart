@@ -24,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
                                    color: Color(0xFF642ef3)
                                ),
                                onChanged: (bool value) {
-                                 notifier.toggleApplicationTheme(value);    /// 2 
+                                 notifier.toggleApplicationTheme(value);    
                                }
                            );
                          }
