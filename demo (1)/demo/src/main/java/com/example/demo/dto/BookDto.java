@@ -1,24 +1,24 @@
-package com.example.demo.entity;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+package com.example.demo.dto;
 
-@Entity
-@Table(name = "book")
-public class Book {
-    @Id
-    @Column(name = "id")
+import lombok.*;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@Data
+@Getter
+@Setter
+public class BookDto {
+
+    @NotNull(message ="id is required")
     private Integer id;
-    @Column(name = "name")
+    @NotBlank(message ="name is required")
     private String name;
-    @Column(name = "description")
+    @NotNull(message = "description is required")
     private String description;
-    @Column(name = "status")
+    @NotNull(message = "status is required")
     private String status;
-     public Book() {
 
-     }
 
     public Integer getId() {
         return id;
