@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin
@@ -35,33 +36,43 @@ public class BookController {
     }
 
     @GetMapping("/generate")
-    public ResponseEntity<byte[]> generateAndDownloadPdf() throws DocumentException {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    public ResponseEntity<byte[]> generateAndDownloadPdf()throws DocumentException{
+        try {
 
-        Document document = new Document();
-        PdfWriter.getInstance(document, byteArrayOutputStream);
-        document.open();
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-        for (Book book : bookService.getBooks()) {
-            document.add(new Paragraph("Book details"));
-            document.add(new Paragraph("Name: " + book.getName()));
-            document.add(new Paragraph("Description: " + book.getDescription()));
-            document.add(new Paragraph("Status: " + book.getStatus()));
-            document.add(new Paragraph("--------------------------------"));
+            Document document = new Document();
+            PdfWriter.getInstance(document, byteArrayOutputStream);
+            document.open();
 
+            for (Book book : bookService.getBooks()) {
+                document.add(new Paragraph("Book details"));
+                document.add(new Paragraph("________"));
+                document.add(new Paragraph("Name: " + book.getName()));
+                document.add(new Paragraph("Description: " + book.getDescription()));
+                document.add(new Paragraph("Status: " + book.getStatus()));
+                document.add(new Paragraph("--------------------------------"));
+                int i = 2/0;
+            }
+
+
+            document.close();
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDispositionFormData("filename", "generated.pdf");
+            //headers.add("Custom-Header", "Custom Value");
+            return ResponseEntity
+                    .ok()
+                    .headers(headers)
+                    .body(byteArrayOutputStream.toByteArray());
+        } catch (ArithmeticException e) {
+            e.printStackTrace();
+
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to generate PDF.".getBytes());
         }
-
-
-        document.close();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_PDF);
-        headers.setContentDispositionFormData("filename", "generated.pdf");
-
-        return ResponseEntity
-                .ok()
-                .headers(headers)
-                .body(byteArrayOutputStream.toByteArray());
     }
 
     @RequestMapping(value = "/books",method = RequestMethod.GET)
