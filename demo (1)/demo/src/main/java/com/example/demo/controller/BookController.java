@@ -35,45 +35,45 @@ public class BookController {
         this.bookRepository = bookRepository;
     }
 
-    @GetMapping("/generate")
-    public ResponseEntity<byte[]> generateAndDownloadPdf()throws DocumentException{
-        try {
-
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
-            Document document = new Document();
-            PdfWriter.getInstance(document, byteArrayOutputStream);
-            document.open();
-
-            for (Book book : bookService.getBooks()) {
-                document.add(new Paragraph("Book details"));
-                document.add(new Paragraph("________"));
-                document.add(new Paragraph("Name: " + book.getName()));
-                document.add(new Paragraph("Description: " + book.getDescription()));
-                document.add(new Paragraph("Status: " + book.getStatus()));
-                document.add(new Paragraph("--------------------------------"));
-                int i = 2/0;
-            }
-
-
-            document.close();
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.setContentDispositionFormData("filename", "generated.pdf");
-            //headers.add("Custom-Header", "Custom Value");
-            return ResponseEntity
-                    .ok()
-                    .headers(headers)
-                    .body(byteArrayOutputStream.toByteArray());
-        } catch (ArithmeticException e) {
-            e.printStackTrace();
-
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to generate PDF.".getBytes());
-        }
-    }
+//    @GetMapping("/generate")
+//    public ResponseEntity<byte[]> generateAndDownloadPdf()throws DocumentException{
+//        try {
+//
+//            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//
+//            Document document = new Document();
+//            PdfWriter.getInstance(document, byteArrayOutputStream);
+//            document.open();
+//
+//            for (Book book : bookService.getBooks()) {
+//                document.add(new Paragraph("Book details"));
+//                document.add(new Paragraph("________"));
+//                document.add(new Paragraph("Name: " + book.getName()));
+//                document.add(new Paragraph("Description: " + book.getDescription()));
+//                document.add(new Paragraph("Status: " + book.getStatus()));
+//                document.add(new Paragraph("--------------------------------"));
+//                int i = 2/0;
+//            }
+//
+//
+//            document.close();
+//
+//            HttpHeaders headers = new HttpHeaders();
+//            headers.setContentType(MediaType.APPLICATION_PDF);
+//            headers.setContentDispositionFormData("filename", "generated.pdf");
+//            //headers.add("Custom-Header", "Custom Value");
+//            return ResponseEntity
+//                    .ok()
+//                    .headers(headers)
+//                    .body(byteArrayOutputStream.toByteArray());
+//        } catch (ArithmeticException e) {
+//            e.printStackTrace();
+//
+//            return ResponseEntity
+//                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body("Failed to generate PDF.".getBytes());
+//        }
+//    }
 
     @RequestMapping(value = "/books",method = RequestMethod.GET)
     public List<Book> getBooks() {
@@ -115,5 +115,19 @@ public class BookController {
     public Page<Book> getBookByPagination(@RequestParam Integer pageNumber, @RequestParam Integer pageSize){
         logger.info("Pagination info");
         return bookService.getBookByPagination(pageNumber,pageSize);
+    }
+    @GetMapping("/generate")
+    public ResponseEntity<String> exampleEndpoint(
+            @RequestParam("pageNumber") String requestParam,
+            @RequestHeader("customHeader") String customHeader) {
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("X-Custom-Header", "HeaderParam");
+        String response = "pageNumber: " + requestParam + "\n" +
+                "Custom Header: " + customHeader;
+
+        return ResponseEntity.ok()
+                .headers(responseHeaders)
+                .body(response);
     }
 }
