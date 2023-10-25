@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.springdocker.SpringdockerApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-10-25T09:58:59" hostname="datasirpi" time="0.644">
+  <properties/>
+  <testcase name="contextLoads()" classname="com.example.springdocker.SpringdockerApplicationTests" time="0.644"/>
+  <system-out><![CDATA[15:28:58.833 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.springdocker.SpringdockerApplicationTests]: SpringdockerApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:28:58.923 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.springdocker.SpringdockerApplication for test class com.example.springdocker.SpringdockerApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.1.5)
+
+2023-10-25T15:28:59.161+05:30  INFO 56412 --- [    Test worker] c.e.s.SpringdockerApplicationTests       : Starting SpringdockerApplicationTests using Java 19.0.2 with PID 56412 (started by dsadmin in /home/dsadmin/Downloads/springdocker)
+2023-10-25T15:28:59.162+05:30  INFO 56412 --- [    Test worker] c.e.s.SpringdockerApplicationTests       : No active profile set, falling back to 1 default profile: "default"
+2023-10-25T15:28:59.856+05:30  INFO 56412 --- [    Test worker] c.e.s.SpringdockerApplicationTests       : Started SpringdockerApplicationTests in 0.845 seconds (process running for 1.606)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
