@@ -75,6 +75,10 @@ public class BookController {
 //        }
 //    }
 
+    /**
+     *
+     * @return
+     */
     @RequestMapping(value = "/books",method = RequestMethod.GET)
     public List<Book> getBooks() {
         logger.info("Info message");
@@ -85,37 +89,79 @@ public class BookController {
         return bookService.getBooks();
     }
 
+    /**
+     *
+     * @param dto
+     * @return
+     */
     @RequestMapping(value = "/books",method = RequestMethod.POST)
     public ResponseEntity<Object> createBook(@RequestBody @Validated BookDto dto){
         Book savedBookDetails = bookService.createBook(dto);
         logger.info("Post api info");
         return ResponseEntity.status(HttpStatus.CREATED).body(savedBookDetails);
     }
+
+    /**
+     *
+     * @param update
+     * @return
+     */
     @RequestMapping(value = "/books",method = RequestMethod.PUT)
     public Book updateBook(@RequestBody Book update){
         logger.info("Put api info");
         return bookService.updateBook(update);
     }
+
+    /**
+     *
+     * @param bookId
+     * @return
+     */
     @RequestMapping(value = "/books/{bookId}",method = RequestMethod.DELETE)
     public String deleteById(@PathVariable Integer bookId){
         logger.info("Delete api info");
         return bookService.deleteById(bookId);
     }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/books/{id}",method = RequestMethod.GET)
     public Book findById(@PathVariable Integer id){
         return bookService.findById(id);
     }
 
+    /**
+     *
+     * @param str
+     * @return
+     */
     @RequestMapping(value = "/books/findByname",method = RequestMethod.GET)
     public List<Book> findByName(String str){
         logger.info("Get api to get particular name");
         return bookService.findByName(str);
     }
+
+    /**
+     * 
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "/pagingBooks/{pageNumber}/{pageSize}",method = RequestMethod.GET)
     public Page<Book> getBookByPagination(@RequestParam Integer pageNumber, @RequestParam Integer pageSize){
         logger.info("Pagination info");
         return bookService.getBookByPagination(pageNumber,pageSize);
     }
+
+    /**
+     *
+     * @param requestParam
+     * @param customHeader
+     * @return
+     */
     @GetMapping("/generate")
     public ResponseEntity<String> exampleEndpoint(
             @RequestParam("pageNumber") String requestParam,
