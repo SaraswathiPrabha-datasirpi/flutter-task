@@ -1,0 +1,11 @@
+version: '3'
+services:
+  wordpress:
+    image: wordpress
+    ports:
+      - "8081:80"
+    environment:
+      WORDPRESS_DB_HOST: mysql_db
+      WORDPRESS_DB_PASSWORD: Prabha@1402
+      
+  
